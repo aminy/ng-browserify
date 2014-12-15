@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column pad-bot-10">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <a class="navbar-brand" href="#">ng-browserify</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div search-box-view></div>
+
+                    <!-- Logout button -->
+                    <!--
+                    <div class="nav navbar-nav navbar-right">
+                        <div class="btn-group cirrus-navbar-right">
+                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle"  data-toggle="dropdown">{{getCurrentUser()}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+
+                                <li><button class="btn btn-link btn-sm">{{'view-profile'}}</button></li>
+                                <li><button class="btn btn-link btn-sm" ng-click="viewUsers()">{{'user-management'}}</button></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <form action="/services/authentication/logout" method="POST">
+                                        <button type="submit" class="btn btn-link btn-sm">{{'logout'}}</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div>
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>

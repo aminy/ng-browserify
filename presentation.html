@@ -1,0 +1,227 @@
+
+<!doctype html>
+<html lang="en">	
+<head>
+	<meta charset="utf-8">
+	<title>Angular+Broserify</title>
+	<link rel="icon" type="image/png" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/images/dnbsolotrans.png">
+	<link rel="stylesheet" href="node_modules/reveal.js/css/reveal.min.css">
+	<link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/css/theme/cic.css" id="theme">	
+	<link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/lib/css/zenburn.css">
+	
+	<meta name="description" content="One package manager to rule them all">
+	<meta name="author" content="Amin Yazdani">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+</head>
+
+<body>
+	<!-- Wrap the entire slide show in a div using the "reveal" class. -->
+	<div class="reveal">
+		<!-- Wrap all slides in a single "slides" class -->
+		<div class="slides">
+
+			<!-- ALL SLIDES GO HERE -->
+			<!-- Each section element contains an individual slide -->
+			<section>
+				<h2>Angular+Browserify</h2>
+				<p>One package manager to rule them all</p>	
+				<img src="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/images/cloud_innov_logo_RGB_72.jpg">
+				<p>By <a href="http://www.twitter/aminyazdani">Amin Yazdani</a>
+				<aside class="notes">
+			        
+			    </aside>
+			</section>
+
+			<section>
+				<h2>Our stack</h2>
+				<img src="http://static.squarespace.com/static/52f43a67e4b05930d266882d/t/52f43d5ee4b08f72cd9441b7/1416512498716/" width="200"/>
+				<img src="http://upload.wikimedia.org/wikipedia/commons/a/a4/Java_logo_and_wordmark.svg" width="100"/>
+				<img src="https://lh6.googleusercontent.com/-TlY7amsfzPs/T9ZgLXXK1cI/AAAAAAABK-c/Ki-inmeYNKk/w749-h794/AngularJS-Shield-large.png" width="130"/>
+				<img src="http://browserify.org/images/wizard_hat_blue.png" width="150"/>
+				<img src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png" width="100"/>
+				<br/>
+				<img src="http://pascalprecht.github.io/slides/e2e-testing-with-protractor/img/protractor-logo.png" width="300"/>
+				<img src="http://karma-runner.github.io/assets/img/banner.png"/><br/>
+				<img src="https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" width="300"/>
+				<img src="http://www.ecomspark.com/wp-content/uploads/2014/06/less-css.jpg" width="200"/>
+			</section>
+			<section>
+				<img src="http://browserify.org/images/wizard_hat_blue.png"/>
+				<h2>What's Browserify?</h2>
+				<br>
+				<ul>
+					<li>require('module') for browser</li>
+					<li>Alternative to AMD & RequireJS</li>
+					<li>Synchronous</li>
+				</ul>
+			</section>
+
+			<section>
+					<h2>Hello Browserify</h2>
+<pre><code>//hello.js
+module.export = 'Hello';</code></pre>
+
+<pre><code>//world.js
+module.export = function(){ return 'World'};</code></pre>
+
+<pre><code>//hello-world.js
+var hello = require('./hello.js');
+var world = require('./world.js');
+console.log ( hello + world());</code></pre>
+
+			</section>
+
+			<section>
+				<h2>How does it work?</h2>
+				<div style="float:left;">
+				<img src="http://browserify.org/images/wizard.png" style="width: 300px;"/>
+				</div>
+				<div>
+				<br/>
+				<br/>
+				<ol>
+					<li>One or more entry point</li>
+					<li>Create dependency graph</li>
+					<li>Wrap each module in a closure</li>
+					<li>Bundle the required modules</li>
+				</ol>
+				</div>
+			</section>
+
+			<section>
+				<h2>Why should I use it?</h2>
+				<ul>
+					<li>111,221 packages to use (and counting)</li>
+					<li>Consistency</li>
+					<li>Single tool for dependency management</li>
+					<li>Less http requests for your app</li>
+					<li>It's simple!</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Play with the entry point(s)</h2>
+				<ul>
+					<li>Easy to turn features on/off</li>
+					<li>Perfect for development & testing</li>
+					<li>Run tests for a portion of the code</li>
+				</ul>	
+			</section>
+
+			<section>
+				<h2>How we use it - Buildtool</h2>
+				<pre><code class='javascript'>//gulpfile.js
+var browserify = require('browserify');
+var express = require('express');
+var jshint = require('gulp-jshint');
+var argv = require('yargs').argv;           // to read input CLI parameters
+...
+var languages = require('./app/languages'); //same file we use in front-end
+...
+gulp.task('browserify', function() {
+    return browserify('./app/app.js')
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('./dist'));
+}</code></pre>
+			</section>
+
+			<section>
+				<h2>How we use it - Tests</h2>
+				<pre><code>//gulpfile.js
+gulp.task('browserify-unit-tests', function() {
+	var path = './app/' + argv.module + '/*_unit-test.js';
+    var bundler = browserify();
+    glob.sync(path)
+        .forEach(function(file) {
+            bundler.add(file);
+        });
+    return bundler
+        .pipe(source('unit-tests-bundle.js'))
+        .pipe(gulp.dest(./test));
+});</code></pre>
+			</section>
+
+			<section>
+				<h2>How we use it - App</h2>
+				<pre><code>//app.js
+require('angular');
+
+var myApp = angular.module('myApp',
+	[
+		require('./common/common.js').name,
+		require('./about').name,
+		require('./search').name,
+		require('./login').name,
+		require('./user').name,
+	])
+	.config(require('./appConfig'))
+	.constant('version', require('../package.json').version)
+	.run(require('./common/common-init.js'));
+
+module.exports = myApp;
+</code></pre>
+			</section>
+
+			<section>
+				<h2>How we use it - Structure</h2>
+				<pre><code>//search folder structure
+-index.js
+search.less
+search-controller.js
+-input/
+---index.js
+---search-input.html
+---search-input.less
+---search-input-controller.js
+---search-input-directive.js
+-result/
+---index.js
+---search-result.html
+---search-result.less
+---search-result-controller.js
+---search-result-directive.js</code></pre>
+			</section>
+
+			<section>
+				<h2>How we use it - Components</h2>
+				<pre><code>//index.js - search/
+module.exports = angular.module('search',
+	[
+		require('./input').name,
+        require('./result').name
+	])
+	.controller('searchController', require('./search-controller'));</code></pre>
+			</section>
+
+		</div>
+	</div>
+	<script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+	<script src="node_modules/reveal.js/js/reveal.min.js"></script>
+
+	<script>
+		// Required, even if empty.
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+			transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+			dependencies: [
+				{ src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: 'node_modules/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'node_modules/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+				{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+			]
+		});
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+{
+  "name": "ng-browserify",
+  "version": "1.0.0",
+  "description": "angular+browserify - presentation & demo",
+  "main": "gulpfile.js",
+  "browserify": {
+    "transform": [
+      "html2js-browserify"
+    ]
+  },
+  "devDependencies": {
+    "angular": "^1.3.6",
+    "angular-ui-router": "^0.2.11",
+    "bootstrap": "^3.3.1",
+    "browserify": "^7.0.1",
+    "browserify-shim": "^3.8.1",
+    "chai": "^1.10.0",
+    "connect-livereload": "^0.5.2",
+    "express": "^4.10.6",
+    "glob": "^4.3.1",
+    "gulp": "^3.8.10",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.4.2",
+    "gulp-jshint": "^1.9.0",
+    "gulp-karma": "0.0.4",
+    "gulp-less": "^2.0.1",
+    "gulp-livereload": "^3.0.2",
+    "gulp-protractor": "0.0.12",
+    "html2js-browserify": "0.0.2",
+    "jquery": "^2.1.1",
+    "jshint-stylish": "^1.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-mocha": "^0.1.10",
+    "lodash": "^2.4.1",
+    "mocha": "^2.0.1",
+    "reveal.js": "^2.6.2",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aminy/ng-browserify"
+  },
+  "keywords": [
+    "angular",
+    "browserify",
+    "ng-browserify"
+  ],
+  "author": "Amin Yazdani (@aminyazdani)",
+  "license": "CC 4.0 by attribution",
+  "bugs": {
+    "url": "https://github.com/aminy/ng-browserify/issues"
+  },
+  "homepage": "https://github.com/aminy/ng-browserify"
+}

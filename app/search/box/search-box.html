@@ -1,0 +1,18 @@
+<form class="col-lg-6 col-md-7 col-sm-8 navbar-left row-fluid ngbrowserify-nav">
+    <div class="input-group">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {{selectedCriteria}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="criteria in criterias"><a href ng-click="select(criteria)">{{criteria}}</a></li>
+            </ul>
+        </div><!-- /btn-group -->
+        <input type="text" class="form-control" ng-model="query" placeholder="Search Github.com">
+      <span class="input-group-btn">
+        <button class="btn btn-primary btn-success" type="button" ng-click="search()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </span>
+    </div><!-- /input-group -->
+</form>
