@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<title>Angular+Broserify</title>
 	<link rel="icon" type="image/png" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/images/dnbsolotrans.png">
-	<link rel="stylesheet" href="node_modules/reveal.js/css/reveal.min.css">
+	<link rel="stylesheet" href="https://rawgit.com/hakimel/reveal.js/master/css/reveal.min.css">
 	<link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/css/theme/cic.css" id="theme">	
 	<link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/lib/css/zenburn.css">
 	
@@ -200,8 +200,8 @@ module.exports = angular.module('search',
 
 		</div>
 	</div>
-	<script src="node_modules/reveal.js/lib/js/head.min.js"></script>
-	<script src="node_modules/reveal.js/js/reveal.min.js"></script>
+	<script src="https://rawgit.com/hakimel/reveal.js/master/lib/js/head.min.js"></script>
+	<script src="https://rawgit.com/hakimel/reveal.js/master/js/reveal.min.js"></script>
 
 	<script>
 		// Required, even if empty.
@@ -215,10 +215,10 @@ module.exports = angular.module('search',
 			transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
 			dependencies: [
-				{ src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-				{ src: 'node_modules/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-				{ src: 'node_modules/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-				{ src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+				{ src: 'https://rawgit.com/hakimel/reveal.js/master/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+				{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
 			]
 		});
 	</script>
