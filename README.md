@@ -3,6 +3,28 @@ ng-browserify
 
 Angular+Browserify - presentation &amp; demo
 
+Prepared for AngularJS Meetup in Vancouver - December 17, 2014
+
+http://www.meetup.com/vanangularJS/events/218664916/
+
+#Presentation
+You can see the presentation here: 
+https://rawgit.com/aminy/ng-browserify/master/presentation.html
+
+#Demo
+For demo please clone this repository and follow the steps:
+```
+npm install
+```
+
+```
+gulp
+```
+
+This will buld the demo run the express server for you on port 9090. You can viewt the demo at:
+```
+http://localhost:9090
+```
 
 =============
 
