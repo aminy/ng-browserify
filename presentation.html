@@ -33,7 +33,8 @@
 				<img src="https://dl.dropboxusercontent.com/u/17653790/ng-enterprise/images/cloud_innov_logo_RGB_72.jpg">
 				<p>By <a href="http://www.twitter/aminyazdani">Amin Yazdani</a>
 				<aside class="notes">
-			        
+			        Introduction.
+					Mention that we are hiring!
 			    </aside>
 			</section>
 
@@ -49,6 +50,12 @@
 				<img src="http://karma-runner.github.io/assets/img/banner.png"/><br/>
 				<img src="https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" width="300"/>
 				<img src="http://www.ecomspark.com/wp-content/uploads/2014/06/less-css.jpg" width="200"/>
+				<aside class="notes">
+					Browserify over RequireJS
+					Node over Bower
+					Gulp over Grunt
+					Both Protractor & Karma
+				</aside>
 			</section>
 			<section>
 				<img src="http://browserify.org/images/wizard_hat_blue.png"/>
@@ -59,6 +66,12 @@
 					<li>Alternative to AMD & RequireJS</li>
 					<li>Synchronous</li>
 				</ul>
+				<aside class="notes">
+					Way to import/export modules
+					node's CommonJS format
+					You can import almost any node module in client side
+					Creates one bundle instead of many asynchronous call
+				</aside>
 			</section>
 
 			<section>
@@ -74,6 +87,10 @@ var hello = require('./hello.js');
 var world = require('./world.js');
 console.log ( hello + world());</code></pre>
 
+			<aside class="notes">
+				You can export any java object, including json
+				Or functions
+			</aside>
 			</section>
 
 			<section>
@@ -91,17 +108,28 @@ console.log ( hello + world());</code></pre>
 					<li>Bundle the required modules</li>
 				</ol>
 				</div>
+				<aside class="notes">
+					Dependency tree is the key!
+					Browserify traverse your code base and only adds relevant code to the bundle.
+					Clean code, no global scope polutions.
+					One file (that can be minified) for result.
+				</aside>
 			</section>
 
 			<section>
 				<h2>Why should I use it?</h2>
 				<ul>
-					<li>111,221 packages to use (and counting)</li>
+					<li>112,497 packages to use (and counting)</li>
 					<li>Consistency</li>
 					<li>Single tool for dependency management</li>
 					<li>Less http requests for your app</li>
 					<li>It's simple!</li>
 				</ul>
+				<aside class="notes">
+					You can the same package in back-end and front end.
+					You deal with you code the same way you deal with external libraries
+					Code separation.
+				</aside>
 			</section>
 
 			<section>
@@ -110,11 +138,29 @@ console.log ( hello + world());</code></pre>
 					<li>Easy to turn features on/off</li>
 					<li>Perfect for development & testing</li>
 					<li>Run tests for a portion of the code</li>
-				</ul>	
+				</ul>
+				<aside class="notes">
+					On of the most powerful parts of browserify
+					you can easily turn on/off features (components)
+					Perfect for testing
+					Test isolation, cause it only includes the code that it needs to run a test.
+				</aside>
 			</section>
 
 			<section>
-				<h2>How we use it - Buildtool</h2>
+				<section>
+					<h2>How we use it</h2>
+					<ul>
+						<li>Buildtool</li>
+						<li>Tests (karma)</li>
+						<li>Angular App</li>
+						<li>Code structure</li>
+						<li>Components</li>
+						<li>Directives & Templates</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Buildtool</h2>
 				<pre><code class='javascript'>//gulpfile.js
 var browserify = require('browserify');
 var express = require('express');
@@ -124,78 +170,108 @@ var argv = require('yargs').argv;           // to read input CLI parameters
 var languages = require('./app/languages'); //same file we use in front-end
 ...
 gulp.task('browserify', function() {
-    return browserify('./app/app.js')
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./dist'));
-}</code></pre>
-			</section>
+  var bundler = browserify();
+  return bundler.add('./app/app.js')
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./dist'));
+});</code></pre>
+				</section>
 
-			<section>
-				<h2>How we use it - Tests</h2>
+				<section>
+					<h2>Tests</h2>
 				<pre><code>//gulpfile.js
 gulp.task('browserify-unit-tests', function() {
-	var path = './app/' + argv.module + '/*_unit-test.js';
-    var bundler = browserify();
-    glob.sync(path)
-        .forEach(function(file) {
-            bundler.add(file);
-        });
-    return bundler
-        .pipe(source('unit-tests-bundle.js'))
-        .pipe(gulp.dest(./test));
+  var path = './app/' + argv.module + '/*_unit-test.js';
+  var bundler = browserify();
+  glob.sync(path)
+    .forEach(function(file) {
+      bundler.add(file);
+    });
+  return bundler
+    .pipe(source('unit-tests-bundle.js'))
+    .pipe(gulp.dest(./test));
 });</code></pre>
-			</section>
+				</section>
 
-			<section>
-				<h2>How we use it - App</h2>
-				<pre><code>//app.js
+				<section>
+					<h2>Angular App</h2>
+				<pre><code class='javascript'>//app.js
 require('angular');
 
 var myApp = angular.module('myApp',
-	[
-		require('./common/common.js').name,
-		require('./about').name,
-		require('./search').name,
-		require('./login').name,
-		require('./user').name,
-	])
-	.config(require('./appConfig'))
-	.constant('version', require('../package.json').version)
-	.run(require('./common/common-init.js'));
+  [
+    require('./common/common.js').name,
+    require('./search').name,
+    require('./home').name,
+  ])
+  .config(require('./appConfig'))
+  .constant('version', require('../package.json').version)
+  .run(require('./common/common-init.js'));
 
-module.exports = myApp;
-</code></pre>
-			</section>
+module.exports = myApp;</code></pre>
+				</section>
 
-			<section>
-				<h2>How we use it - Structure</h2>
+				<section>
+					<h2>Code structure</h2>
 				<pre><code>//search folder structure
--index.js
+index.js
 search.less
-search-controller.js
--input/
----index.js
----search-input.html
----search-input.less
----search-input-controller.js
----search-input-directive.js
--result/
----index.js
----search-result.html
----search-result.less
----search-result-controller.js
----search-result-directive.js</code></pre>
+box/
+    index.js
+    search-box.html
+    search-box.less
+    search-box-controller.js
+    search-box-controller_e2e-test.js
+    search-box-directive.js
+results/
+    index.js
+    search-results.html
+    search-results.less
+    search-results-controller.js
+    search-results-controller_unit-test.js
+    search-results-directive.js</code></pre>
+				</section>
+
+				<section>
+					<h2>Components</h2>
+				<pre><code class='javascript'>//index.js - search/
+module.exports = angular.module('search',
+  [
+    require('./input').name,
+    require('./result').name
+  ])</code></pre>
+				<pre><code class="javascript">//index.js - search/box/
+module.exports = angular.module('search-box',[])
+  .directive('searchBoxView', require('./search-box-directive.js'))
+  .controller('searchBoxController', require('./search-box-controller.js'));</code></pre>
+				</section>
+
+				<section>
+					<h2>Directive & Templates</h2>
+				<pre><code class='json'>//pacakge.json
+"browserify": {
+  "transform": [
+    "html2js-browserify"
+  ]
+}</code></pre>
+					<pre class='javascript'><code>//search-results-directive.js - search/results/
+module.exports = function() {
+  return {
+   controller: 'searchResultsController',
+   template: require('./search-results.html'),
+   restrict: 'EA',
+   scope: true
+  };
+};</code></pre>
+				</section>
+
 			</section>
 
 			<section>
-				<h2>How we use it - Components</h2>
-				<pre><code>//index.js - search/
-module.exports = angular.module('search',
-	[
-		require('./input').name,
-        require('./result').name
-	])
-	.controller('searchController', require('./search-controller'));</code></pre>
+				<h2>Thank you!</h2>
+				<br/>
+				<p>Source: <a href="http://github.com/aminy/ng-browserify">github.com/aminy/ng-browserify</a></p>
 			</section>
 
 		</div>
