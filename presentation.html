@@ -151,9 +151,8 @@ console.log ( hello + world());</code></pre>
 				<section>
 					<h2>How we use it</h2>
 					<ul>
-						<li>Buildtool</li>
-						<li>Tests (karma)</li>
-						<li>Angular App</li>
+						<li>Build</li>
+						<li>Tests</li>
 						<li>Code structure</li>
 						<li>Components</li>
 						<li>Directives & Templates</li>
@@ -195,24 +194,6 @@ gulp.task('browserify-unit-tests', function() {
 				</section>
 
 				<section>
-					<h2>Angular App</h2>
-				<pre><code class='javascript'>//app.js
-require('angular');
-
-var myApp = angular.module('myApp',
-  [
-    require('./common/common.js').name,
-    require('./search').name,
-    require('./home').name,
-  ])
-  .config(require('./appConfig'))
-  .constant('version', require('../package.json').version)
-  .run(require('./common/common-init.js'));
-
-module.exports = myApp;</code></pre>
-				</section>
-
-				<section>
 					<h2>Code structure</h2>
 				<pre><code>//search folder structure
 index.js
@@ -235,10 +216,20 @@ results/
 
 				<section>
 					<h2>Components</h2>
+				<pre><code class='javascript'>//app.js
+require('angular');
+var myApp = angular.module('myApp',
+  [
+    require('./search').name,
+    require('./home').name,
+  ])
+...
+module.exports = myApp;</code></pre>
+
 				<pre><code class='javascript'>//index.js - search/
 module.exports = angular.module('search',
   [
-    require('./input').name,
+    require('./box').name,
     require('./result').name
   ])</code></pre>
 				<pre><code class="javascript">//index.js - search/box/
