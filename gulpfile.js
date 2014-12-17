@@ -19,12 +19,23 @@ var localServer = function(conf){
     var app = express();
     var http = require('http');
 
+    app.use(function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
+
     if(conf.livereload){
         app.use(livereload({port: conf.livereloadPort}));
     }
-    app.use(express.static(conf.root));
+    
+    //define endpoints
+    conf.root.map(function(item) {
+        app.use(express.static(item));
+    });
+
     app.all('/*', function(req, res) {
-        res.sendFile(conf.root + 'index.html', { root: __dirname });
+        res.sendFile(conf.root[0] + 'index.html', { root: __dirname });
     });
 
     return http.createServer(app).listen(conf.port, function(){
@@ -97,7 +108,7 @@ var filePath = {
 var serverConf = {
     port: 9090,
     livereloadPort: 35729,
-    root: './dist/'
+    root: ['./dist/','./mock-api/']
 };
 
 gulp.task('clean', function() {

@@ -8,7 +8,7 @@
                 <li ng-repeat="criteria in criterias"><a href ng-click="select(criteria)">{{criteria}}</a></li>
             </ul>
         </div><!-- /btn-group -->
-        <input type="text" class="form-control" ng-model="query" placeholder="Search Github.com">
+        <input ng-keyup="searchOnEnter($event)" type="text" class="form-control" ng-model="query" placeholder="Search my fantasies">
       <span class="input-group-btn">
         <button class="btn btn-primary btn-success" type="button" ng-click="search()">
             <span class="glyphicon glyphicon-search"></span>
