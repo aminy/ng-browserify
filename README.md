@@ -7,6 +7,9 @@ Prepared for AngularJS Meetup in Vancouver - December 17, 2014
 
 http://www.meetup.com/vanangularJS/events/218664916/
 
+#D&B Cloud Innvation Center
+We are building an enterprise grade Angular app with Java back-end. If you are interested in helping please contact me at yazdania@dnb.com or check us online at http://www.dnbcloud.com/jobs/
+
 #Presentation
 You can see the presentation here: 
 https://rawgit.com/aminy/ng-browserify/master/presentation.html
