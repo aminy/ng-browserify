@@ -18,23 +18,15 @@ function SearchResultsController($scope, $state, $http) {
     });
 
     var getUrl = function(){
-        var host = 'https://api.github.com';
-        if ($scope.searchBy === 'Repository'){
-            return host + '/search/repositories';
-        }else if ($scope.searchBy === 'Code'){
-            return host + '/search/code';
-        }else if ($scope.searchBy === 'Issue'){
-            return host + '/search/issues';
-        }else if ($scope.searchBy === 'User'){
-            return host + '/search/users';
-        }
+        return '/api/demo.json';
     };
     var search = function(){
         $http({
             method: 'GET',
             url: getUrl(),
             params:{
-                q: $scope.query
+                area: $scope.searchBy,
+                query: $scope.query
             }
         }).then(function(result){
             $scope.result = result.data;
